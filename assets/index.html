@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form class="vg-contact-form" id="submit-form" name="google-sheet" method="post"
+						action="https://script.google.com/macros/s/AKfycbz7jvxZRQfv4BEx_mOEDypHeFEfFBQlwRH23kSIBIL9ScD64YREX5wfVWk4Gu0ws1Ug/exec">
+						<div class="form-row">
+
+							<!-- Name -->
+							<div class="col-12 mt-3 wow fadeInUp fom">
+								<input class="form-control" type="text" name="Name" placeholder="Your Name"
+									id="contact-name" onkeyup="validateName()">
+								<span id="name-error"></span>
+							</div>
+
+							<!-- mail -->
+							<div class="col-12 mt-3 wow fadeInUp fom">
+								<input class="form-control" type="text" name="Email" placeholder="Email Address"
+									id="contact-email" onkeyup="validateEmail()">
+								<span id="email-error"> </span>
+							</div>
+
+
+							<!-- message -->
+							<div class="col-12 mt-3 wow fadeInUp fom">
+								<textarea class="form-control" name="Message" rows="6"
+									placeholder="Enter message here.." id="contact-message"
+									onkeyup="validateMessage()"></textarea>
+								<span id="message-error"> </span>
+							</div>
+
+							<!-- submit -->
+							<button type="submit" class="btn btn-theme mt-3 wow fadeInUp ml-1"
+								onclick="return validateForm()" value="Submit">Send Message</button>
+							<span id="submit-error"> </span>
+						</div>
+	 </form>
+<script>  
+                      
+					  var nameError = document.getElementById('name-error');
+var emailError = document.getElementById('email-error');
+var messageError = document.getElementById('message-error');
+var submitError = document.getElementById('submit-error');
+
+
+
+
+function validateName(){
+    var name = document.getElementById('contact-name').value;
+
+    if(name.length==0){
+        nameError.innerHTML= 'Name is required';
+        return false;
+    }
+    if(!name.match(/[A-Za-z]\s{1}[A-Za-z]$/)){
+        nameError.innerHTML='Write full name';
+        return false;
+    }
+    nameError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+    return true;
+}
+
+function validateEmail(){
+    var email = document.getElementById('contact-email').value;
+
+    if(email.length==0){
+        emailError.innerHTML='Email is required'
+        return false;
+    }
+    if(email.match(/^[A-Za-z\._\-[0-9][@][A-Za-z][\.][a-z]$/)){
+        emailError.innerHTML = 'Email invalid'
+        return false;
+    }
+  
+}
+
+function validateMessage(){
+    var message = document.getElementById('contact-message').value;
+    var required=15;
+    var left=required-message.length;
+
+    if(left>0){
+        messageError.innerHTML=left+'more character required';
+        return false;
+    }
+
+    messageError.innerHTML= '<i class="fa-solid fa-circle-check"></i>';
+    return true;
+}
+
+function validateForm(){
+    if(!validateName()  || !validateMessage()){
+
+        // submitError.style.display='block';
+        submitError.innerHTML='Please fill  and submit';
+        setTimeout(function(){submitError.style.display='none';},3000);
+        return false;
+    }
+}
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
